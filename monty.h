@@ -1,11 +1,11 @@
-#ifndef __PILE__
-#define __PILE__
+#ifndef _MONTY_H_
+#define _MONTY_H_
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <string.h>
+#include <ctype.h>
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -17,9 +17,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -29,13 +29,24 @@ typedef struct stack_s
  *
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO
- */
+*/
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number, char *instruction);
 } instruction_t;
 
-stack_t *new_stack(void);
-void stack_push (stack_t ** pp_stack, void *data);
+extern instruction_t opcodes[];
+
+void execute_instruction(char *instruction, stack_t **stack,
+	unsigned int line_number);
+void free_stack(stack_t **stack);
+void push(stack_t **stack, unsigned int line_number, char *instruction);
+void pall(stack_t **stack, unsigned int line_number, char *instruction);
+void pint(stack_t **stack, unsigned int line_number, char *instruction);
+void pop(stack_t **stack, unsigned int line_number, char *instruction);
+void swap(stack_t **stack, unsigned int line_number, char *instruction);
+void add(stack_t **stack, unsigned int line_number, char *instruction);
+void nop(stack_t **stack, unsigned int line_number, char *instruction);
+
 #endif
