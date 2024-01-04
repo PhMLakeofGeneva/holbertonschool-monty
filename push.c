@@ -9,6 +9,7 @@
 void push(stack_t **stack, unsigned int line_number, char *instruction)
 {
 	char *data;
+	int value;
 
 	if (!instruction || (!isdigit(instruction[5]) && instruction[5] != '-'))
 	{
@@ -18,7 +19,7 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 
 	data = instruction + 5;
 
-	int value = atoi(data);
+	value = atoi(data);
 
 	stack_t *new_node = malloc(sizeof(stack_t));
 
