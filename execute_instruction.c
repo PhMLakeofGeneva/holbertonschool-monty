@@ -12,6 +12,17 @@ void execute_instruction(char *instruction, stack_t **stack,
 	char *opcode;
 	int i;
 
+	instruction_t opcodes[] = {
+	{"push", push},
+	{"pall", pall},
+	{"pint", pint},
+	{"pop", pop},
+	{"swap", swap},
+	{"add", add},
+	{"nop", nop},
+	{NULL, NULL}
+};
+
 	/* Tokenisation de la chaîne d'instructions */
 	opcode = strtok(instruction, " \t\n");
 	if (!opcode || opcode[0] == '#')
