@@ -11,7 +11,8 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 	char *data;
 	int value;
 
-	if (!instruction || (!isdigit(instruction[5]) && instruction[5] != '-'))
+	if (!instruction || !isdigit(instruction[5]) || (instruction[5] == '-' &&
+		!isdigit(instruction[6])))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -38,9 +39,7 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 		(*stack)->prev = new_node;
 	}
 	else
-	{
 		new_node->next = NULL;
-	}
 
 	*stack = new_node;
 }

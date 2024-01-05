@@ -4,10 +4,10 @@
  *
  * @stack: Pointer to the stack
  * @line_number: Line number in the Monty bytecode file
- * @instruction: Instruction string
+ * @instruction: Instruction string (not used)
 */
 void pall(stack_t **stack, unsigned int line_number __attribute__((unused)),
-	char *instruction __attribute__((unused)))
+		  char *instruction __attribute__((unused)))
 {
 	stack_t *current = *stack;
 
