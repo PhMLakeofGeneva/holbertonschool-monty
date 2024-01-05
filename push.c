@@ -9,19 +9,23 @@
 void push(stack_t **stack, unsigned int line_number, char *instruction)
 {
 	char *data;
-	int value;
+	long value;
+	char *endptr;
 
-	if (!instruction || !isdigit(instruction[5]) || (instruction[5] == '-' &&
-		!isdigit(instruction[6])))
+	data = strtok(NULL, " \t\n");
+	if (!data)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	data = instruction + 5;
-
-	value = atoi(data);
-
+	errno = 0;
+	value = strtol(data, &endptr, 10);
+	if (errno != 0 || value != 0, *endptr != '\0')
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	stack_t *new_node = malloc(sizeof(stack_t));
 
 	if (!new_node)
@@ -30,7 +34,7 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->n = value;
+	new_node->n = (int)value;
 	new_node->prev = NULL;
 
 	if (*stack)
