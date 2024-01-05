@@ -10,7 +10,6 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 {
 	char *data;
 	long value;
-	char *endptr;
 
 	data = strtok(NULL, " \t\n");
 	if (!data)
@@ -20,8 +19,8 @@ void push(stack_t **stack, unsigned int line_number, char *instruction)
 	}
 
 	errno = 0;
-	value = strtol(data, &endptr, 10);
-	if (errno != 0 || value != 0, *endptr != '\0')
+	value = strtol(data, &instruction, 10);
+	if (errno != 0 || value > INT_MAX || value < INT_MIN || *instruction != '\0')
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
